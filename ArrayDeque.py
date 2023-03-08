@@ -46,7 +46,7 @@ class ArrayDequeMaxlen():
         # increase the size of deque by 1
         self._size += 1
 
-    def delete_first(self, e):
+    def delete_first(self):
         """Remove and return the first element from deque D"""
         if self.is_empty():
             raise Empty('Deque is empty')
@@ -61,15 +61,55 @@ class ArrayDequeMaxlen():
         # return the removed first element
         return result
 
+    def delete_last(self):
+        """Remove and return the last element from deque D"""
+        if self.is_empty():
+            raise Empty('Deque is empty')
+        # get position of last element by looking at size, current pointer
+        back = (self._front + self._size - 1) % len(self._data)
+        # save the value of the last element
+        result = self._data[back]
+        # set the last element to None
+        self._data[back] = None
+        # decrement the size of deque by 1
+        self._size -= 1
+        # return the removed last element
+        return result
+
+    def delete_first_match(self, e):
+        """Remove and return the last element from deque D"""
+        if self.is_empty():
+            raise Empty('Deque is empty')
+        # Find the index of the first element that matches 'e'
+        match_index = -1
+        for i in range(self._size):
+            if self._data[(self._front + i) % len(self._data)] == e:
+                match_index = i
+                break
+        # If no matching element was found, raise an exception
+        if match_index == -1:
+            raise ValueError(f"No match found for element '{e}' in deque")
+        # Save the value of the matching element and remove it from the deque
+        match_value = self._data[(self._front + match_index) % len(self._data)]
+        for i in range(match_index, self._size - 1):
+            # Shift all the elements after the matching element to the left
+            self._data[(self._front + i) % len(self._data)] = \
+                self._data[(self._front + i + 1) % len(self._data)]
+        # Set the last element to None and decrement the size of deque
+        self._data[(self._front + self._size - 1) % len(self._data)] = None
+        self._size -= 1
+        # Return the value of the removed element
+        return match_value
+
     def first(self):
-        """Return the first element of deque D"""
+        """Return (but do not remove) the first element of deque D"""
         if self.is_empty():
             raise Empty('Deque is empty')
         # return the value from the first eleemnt's position
         return self._data[self._front]
 
     def last(self):
-        """Return the last element of deque D"""
+        """Return (but do not remove) the last element of deque D"""
         if self.is_empty():
             raise Empty('Deque is empty')
         # get position of last element by looking at size, current pointer
