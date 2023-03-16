@@ -17,7 +17,7 @@ for i in range(100):
     AQM.add_last(i)
     print(i, AQM._data)
 
-print('\nDelete 80', AQM.delete_first_match(80), AQM._data, AQM._front)
+print('\nDelete first match with', AQM.delete_first_match(80), AQM._data, AQM._front)
 
 
 print('\nAdding first')
