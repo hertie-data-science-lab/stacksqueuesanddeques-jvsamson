@@ -9,21 +9,27 @@ Created on Mon Mar 6 13:04:23 2023
 class Empty(Exception):
     pass
 
-
 class ArrayDequeMaxlen():
-    def __init__(self, size):
+
+    start_size = 10
+
+    def __init__(self, max_len):
         """Create an empty Array-based deque with a maximum capacity"""
-        self._data = [None] * size  # create an list of None with given size
+        self._data = [None] * ArrayDequeMaxlen.start_size  # create an list of None with given size
         self._size = 0  # number of elements in the deque initially set to 0
         self._front = 0  # the position of the first element initially set to 0
         self._ = 0
+        self.max_len = max_len
 
     def add_first(self, e):
         """Add element 'e' to the front of deque D."""
         # if the number of elements reaches the maximum capacity of the array
-        # the array has to be resized
-        if self._size == len(self._data):
-            self._resize(2 * len(self.data))
+        # the array has to be resized using Fi-Fo Method
+        if self._size == self.max_len:
+            self.delete_first()
+        # If deque not at maximum length but at maximum capacity than resize
+        elif self._size == len(self._data):
+            self._resize(2 * len(self._data))
         # position of new element calculated
         # by moving the front pointer one step backwards
         avail = (self._front - 1) % len(self._data)
@@ -37,7 +43,11 @@ class ArrayDequeMaxlen():
     def add_last(self, e):
         """Add element 'e' to the back of deque D."""
         # if number of elements reaches maximum capacity then resize the array
-        if self._size == len(self._data):
+        if self._size == self.max_len:
+        # using Fi-Fo Method
+            self.delete_first()
+        # If deque not at maximum length but at maximum capacity than resize
+        elif self._size == len(self._data):
             self._resize(2 * len(self._data))
         # calculate position of new element by looking at current pointer, size
         avail = (self._front + self._size) % len(self._data)
@@ -127,13 +137,13 @@ class ArrayDequeMaxlen():
         # Just return the size of deque
         return self._size
 
-    def _resize(self, cap):
-        """Resize the list of Deque D to a capacity of 'cap',
-        which must be greater than/equal to the current length of the deque."""
+
+    def _resize(self, max_len):
+        """Resize the list of Deque D to a capacity of 'cap'"""
         # save old values in order to retain them after the reisding
         old = self._data
         # create a new list with given capacity and fill it with nones
-        self._data = [None] * cap
+        self._data = [None] * max_len
         # start at the current front-position
         walk = self._front
         # loop through all elements starting at the front of the deque
