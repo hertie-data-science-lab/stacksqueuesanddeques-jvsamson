@@ -3,7 +3,7 @@
 """
 Created on Tue Mar  7 15:26:48 2023
 
-@author: Justus v. Samson-Himmelstjerna, Niklas Pawelzik and Benedikt Korbach
+@author: Justus v. Samson-Himmelstjerna, Niklas Pawelzik, Benedikt Korbach, Alvaro Guijarro May
 """
 
 

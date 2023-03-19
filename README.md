@@ -1,3 +1,7 @@
+# Our Assumptions:
+
+- We implemented the Deque in a way that if the number of elements reaches the maximum capacity, the add_last method will delete the oldest element (FiFo), and that the add_first method will delete the newest element (LiFo).
+
 # DequeADT
 
 Implement a queue-like data structure that supports insertion and deletion
